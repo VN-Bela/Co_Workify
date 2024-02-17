@@ -21,5 +21,10 @@
 </section>
 
 
+{% for image in images %}
+
+<img src="{{image.images.url}}" alt="image" style="width: 100px; height: 100px;"/>
+
+{% endfor %}
 
 {%endblock%}
