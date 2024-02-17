@@ -1,0 +1,340 @@
+/* =======================================================================
+Template Name: B-Space Single Page Template
+Author:  SmartEye Technologies
+Author URI: www.smart-eye.in
+Version: 1.0
+coder name:Prabin Raja
+Description: This Template is created for web template
+
+======================================================================= */
+
+
+/* ===================================== Import Less ================================== */
+
+@import "values.less";
+@import "functions.less";
+
+
+/* ===================================== Basic CSS ================================== */
+* {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+   
+}
+img{max-width: 100%;}
+a {
+    text-decoration: none;
+    outline: none;
+}
+ul{margin-bottom: 0; padding-left: 0;}
+a:hover,
+a:focus,
+input,
+textarea {
+    text-decoration: none;
+    outline: none;
+}
+.cp{cursor: pointer}
+p{margin-bottom: 0px; width: 100%;}
+.layy{padding: 30px;}
+h2{width: 100%;}
+.no-padding{padding: 0px;}
+.no-margin{margin: 0px;}
+.sec-title{
+    text-align: center;
+    
+    h2{font-size: 2rem; font-weight: 600; text-transform: none;
+    font-family:robot-slab }
+    p{font-size: 14px;}
+}
+body{
+    background:@background-color;
+    font-family:robot-slab;
+    font-size:@main-font-size;
+    overflow-x: hidden;
+}
+
+
+/* ===================================== Header Style  ================================== */
+
+.header-top{
+    position: fixed;
+    width: 100%;
+    min-height: 60px;
+    background-color: #FFF;
+    z-index: 9999;
+    .shado-1();
+    img{
+        width: 75%;
+        margin-top: 9px;
+    }
+    ul{float: right}
+    ul li{
+        float: left;
+        padding: 28px 25px;
+        font-size: 15px;
+        a{color: #444}
+    }
+}
+
+/* ===================================== Slider Style  ================================== */
+
+.slider{
+    margin-top: 87px;
+    h2{
+        text-transform: none!important;
+        font-family:robot-slab !important;
+    }
+    .tp-caption{
+        text-transform: none!important;
+        font-family:robot-slab !important;
+    }
+    .sub-title{
+        text-transform: none!important;
+        font-family:robot-slab !important;
+    }
+}
+
+/* ===================================== Ament Style  ================================== */
+.ammenties{
+    padding: 50px;
+    .ament-item{
+        text-align: center;
+        padding: 50px 30px;
+        i{
+            font-size: 42px;
+            margin-bottom: 20px;
+            color: #f4bb04;
+        }
+        b{
+            font-weight: 300;
+            font-size: 18px;
+        }
+        .card-1();
+        margin-bottom: 20px;
+        background-color: #FFF;
+        &:hover{
+            background-color: @background-dark;
+            color: #FFF;
+            i{color: #FFF;}
+            b{color: #FFF;}
+        }
+    }
+}
+
+/* ===================================== About Us Style  ================================== */
+
+.home-about{
+    .about-img{padding: @no-padding;}
+    height: 450px;
+    overflow: hidden;
+    .adout-det{
+        .bakground-image("../images/slider_demo.jpg");
+        height: 100%;
+        padding: @no-padding;
+        .layy{ 
+            background: rgba(244, 187, 4, 0.97); 
+            height: 100%;
+            color: @text-color-light;
+            padding: 40px;
+        }
+        b{
+            font-size: 2rem;
+            
+        }
+        p{
+           text-align: justify;
+           text-indent: 25px; 
+           margin-top: 25px;
+        }
+    }
+}
+
+
+/* ===================================== Meeting Room Style  ================================== */
+
+.meeting-room{
+    background-color: #FFF;
+    padding: 50px;
+    table{
+        .card-1();
+       tr td,th{
+            border-right: 1px solid #CCC;
+           text-align: center;
+        }
+    }
+    .features{
+        margin-top: 20px;
+        ul li{
+            list-style: disc;
+            margin-left: 20px;
+            font-size: 14px;
+        }
+    }
+}
+
+/* ===================================== Co-Working Space Style  ================================== */
+
+.co-workin-space{
+    .bakground-image('../images/co-working-bg.jpg');
+    .inlay{ 
+             background: rgba(244, 187, 4, 0.97); 
+            height: 100%;
+            color: @text-color-light;
+            padding: 40px;
+        }
+    .sec-title{
+        margin-bottom: 10px;
+    }
+    .sec-title h2{
+        color: #FFF;
+    }
+    .col-sm-6{
+        padding: 30px;
+    }
+    p{text-align: center; font-size: 15px;}
+}
+
+
+/* =====================================  Pricing Style  ================================== */
+
+
+.pricing{
+    padding: 50px;
+    background-color: #f7f7f7;
+    .price-tab{
+        img{
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .card-1();
+        padding: 30px;
+        text-align: center;
+        background-color: #FFF;
+        b{
+            font-size: 22px;
+            font-weight: 300;
+        }
+        p{
+            font-size: 16px;
+            margin-top: 15px;
+        }
+    }
+}
+
+/* =====================================  Location Style  ================================== */
+
+.location{
+    iframe{width: 100%;}
+    background-color: #FFF;
+    .det{
+        padding: 50px 80px;
+        p{ text-align: center;}
+    }
+}
+
+/* =====================================  Contat Us Style  ================================== */
+
+.contact-us{
+    padding: 50px;
+    background-color: #FBFBFB;
+    .contat-det{
+        text-align: center;
+        i{
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #f4bb04;
+        }
+        p{
+            font-size: 17px;
+        }
+    }
+    .sec-title p{
+        font-size: 16px;
+    }
+}
+
+/* ===================================== Copright Style  ================================== */
+
+.copy{
+    padding: 20px;
+    background-color: #FFFFFF;
+    color: #808080;
+    .foot-social li{
+        float: right;
+        padding: 0px 20px;
+        font-size:14px;
+    }
+    .card-1();
+    .foot-social li{
+        color:  #808080;
+    }
+}
+
+
+/* ===================================== Gallery Style  ================================== */
+
+.gallery-filter{
+    width: 100%;
+    text-align: center;
+    .btn{
+        background-color: #FFF;
+    }
+}
+.gallery{
+    padding: 30px;
+    background-color: #FFF;
+}
+.gallery-title
+{
+    font-size: 36px;
+    color: #f4bb04;
+    text-align: center;
+    font-weight: 500;
+    margin-bottom: 70px;
+}
+.gallery-title:after {
+    content: "";
+    position: absolute;
+    width: 7.5%;
+    left: 46.5%;
+    height: 45px;
+    border-bottom: 1px solid #f4bb04;
+}
+.filter-button
+{
+    font-size: 18px;
+    border: 1px solid #f4bb04;
+    border-radius: 5px;
+    text-align: center;
+    color: #f4bb04;
+    margin-bottom: 30px;
+
+}
+.filter-button:hover
+{
+    font-size: 18px;
+    border: 1px solid #f4bb04;
+    border-radius: 5px;
+    text-align: center;
+    color: #ffffff;
+    background-color: #f4bb04;
+
+}
+.btn-default:active .filter-button:active
+{
+    background-color: #f4bb04;
+    color: white;
+}
+
+.port-image
+{
+    width: 100%;
+}
+
+.gallery_product
+{
+    margin-bottom: 30px;
+}
+

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}  
+
+<section id="meeting-room" class="meeting-room row" >
+    <div class="container">
+        <div class="row sec-title" style="margin-top: 40px;" >
+          <h2>Seller</h2>
+          </div>
+     </div>
+<table>
+<tr><td>
+<form method="post" enctype="multipart/form-data">
+ {% csrf_token %}
+    <table>
+    {{form.as_table}}
+    </table>
+    <input type="submit" name="Submit"/>
+</form>
+</td>
+<td style="padding-left: 150px;">
+    {% for i in workspaces %}
+
+     <a href="{% url 'RetriveWorkspace' i.pk %}" style="color: black;">{{i.workspace_name}}</a>
+    <br/>  
+    {% endfor %}
+</td>
+</tr>
+</table>    
+</div>
+</section>
+{% endblock %}

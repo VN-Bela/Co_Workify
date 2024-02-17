@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+{% load static %}
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/plugins/revolution/css/revolution-slider.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/plugins/revolution/css/slider.css' %}">
+ 
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+
+    <title>Working Space HTML Website Template</title>
+</head>
+<body>
+
+    <div id="home" class="container-fluid">
+
+        <!--  ************************* Header Starts Here ************************** -->
+        <header>
+            <div class="row">
+                <div class="header-top">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <img src="{% static 'assets/images/logo.png' %}" alt="Logo">
+                            </div>
+                            <div class="col-sm-8">
+                                <ul>
+                                    <li><a class="js-scroll-trigger" href="/">Home</a></li>
+                                    <li><a class="js-scroll-trigger" href="{% url 'about'%}">About Us</a></li>
+                                    <li><a class="js-scroll-trigger" href="{%url 'gallary' %}">Gallery</a></li>
+                                    <li><a class="js-scroll-trigger" href="{% url 'price' %}">Pricing</a></li>
+                                    <li><a class="js-scroll-trigger" href="{%url 'contact'%}">Contact Us</a></li>
+                                    
+                                    {% if user.is_authenticated %}
+                                    <li> {{user.first_name}}</li>
+                                    <li><a class="js-scroll-trigger" href="{%url 'logout'%}">logout</a></li>
+                                    {% else %}
+                                    <li><a class="js-scroll-trigger" href="{%url 'login'%}">login</a></li>
+                                    
+                                    <li><a class="js-scroll-trigger" href="{%url 'signup'%}">signup</a></li>
+                                    {% endif %}
+                                    
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- ######## Header End ####### -->
+    
+{% block body %}
+
+{% endblock body %}
+      
+               
+            <!--  ************************* Copyright Starts Here ************************** -->
+            <div class="copy row">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <p>Copyright © 2018 Lifeart Group Design & Developed by SmartEye Technologies</p>
+    
+                        </div>
+                        <div class="col-sm-4">
+                            <ul class="foot-social">
+                                <li><i class="fab fa-facebook-f"></i></li>
+                                <li><i class="fab fa-twitter"></i></li>
+                                <li><i class="fab fa-pinterest-p"></i></li>
+                                <li><i class="fab fa-google-plus-g"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
+    
+            <!-- ######## Copyright End ####### -->   
+            
+            </div>
+            <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+            <script src="{% static 'assets/js/jquery-3.2.1.min.js' %}"></script>
+            <script src="{% static 'assets/js/popper.js' %}"></script>
+            <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+            <script src="{% static 'assets/plugins/revolution/js/revolution.min.js' %}"></script>
+            <script src="{% static 'assets/plugins/scroll-nav/js/jquery.easing.min.js' %}"></script>
+            <script src="{% static 'assets/plugins/scroll-nav/js/scrolling-nav.js' %}"></script>
+            <script src="{% static 'assets/js/script.js' %}"></script>
+            
+    </body>
+    
+</html>

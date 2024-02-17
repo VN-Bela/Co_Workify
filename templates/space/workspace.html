@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+<section id="meeting-room" class="meeting-room row" >
+    <div class="container">
+        <div class="row sec-title" style="margin-top: 40px;" >
+          <h2>Workspace</h2>
+          </div>
+     </div>
+<div class="container mt-5" >
+<table>
+    <tr><th> Workspace Name</td><th> Address</td><th> Price</td><th> Avaiable Desk</td></tr>
+    <tr><td> {{object.workspace_name}}</td><td> {{object.address}}</td><td> {{object.price}}</td><td> {{object.desk}}</td></tr>
+</table>
+<form action="{% url 'SpaceImageView' object.pk %}" method="post" enctype="multipart/form-data">
+{% csrf_token %}
+{{form.as_table}}  <input type="submit" name="Submit"/>
+</form>
+</div>
+</section>
+
+
+
+{%endblock%}
