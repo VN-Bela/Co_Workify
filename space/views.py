@@ -24,7 +24,10 @@ class ContactView(TemplateView):
 
 class PriceView(TemplateView):
     template_name = "space/price.html"
-
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        data = super().get_context_data(**kwargs)
+        data["workspace_objs"] = Workspace.objects.all()
+        return data
 
 class GallaryView(TemplateView):
     template_name = "space/gallary.html"

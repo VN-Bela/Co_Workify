@@ -52,7 +52,7 @@ class Workspace(models.Model):
 
 
 class WorkspaceImage(models.Model):
-    workspace_name = models.ForeignKey(Workspace, on_delete=models.CASCADE)
+    workspace_name = models.ForeignKey(Workspace, on_delete=models.CASCADE, related_name="workspace_images")
     images = models.ImageField(upload_to="images")
 
     def __str__(self):

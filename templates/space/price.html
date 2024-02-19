@@ -9,28 +9,25 @@
                     <div class="row sec-title" style="margin-top: 40px;">
                         <h2>OUR PRICING</h2>
                     </div>
+                    {% for data in workspace_objs %}
+                    
+                    <h2>{{data.workspace_name}}</h2>
+                    <p>{{data.address}}</p>
+                    <p>{{data.price}}</p>
+                    
                     <div class="row">
-                        <div class="col-sm-4">
+                       
+                        {% for image in data.workspace_images.all %}
+                        <div class="col-sm-3">
                             <div class="price-tab">
-                                <img src="{% static 'assets/images/price/price_01.jpg'%} " alt="price-1"><br>
-                                <b>Office Desk</b>
-                                <p>Starting at Rs.2500 / Month</p>
+                                <!-- <img src="{% static 'assets/images/price/price_01.jpg'%} " alt="price-1"> -->
+                                <img src="{{image.images.url}} " alt="price-1">
                             </div>
+                           
                         </div>
-                        <div class="col-sm-4">
-                            <div class="price-tab">
-                                <img src="{% static 'assets/images/price/price_02.jpg' %}" alt="price-2"><br>
-                                <b>Conference Room</b>
-                                <p>Starting at Rs.900 / 3 Hrs</p>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="price-tab">
-                                <img src="{% static 'assets/images/price/price_03.jpg' %} " alt="price-3"><br>
-                                <b>Flexi Desk</b>
-                                <p>Per day Rs 300</p>
-                            </div>
-                        </div>
+                        {% endfor %}
+                        <br/>
+                       {% endfor %}
                     </div>
                 </div>
             </section>
