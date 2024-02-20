@@ -1,36 +1,37 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block body %}  
- 
- <!--  ************************* Pricing Starts Here ************************** -->
-                
-            <section id="pricing" class="row pricing">
-                <div class="container">
-                    <div class="row sec-title" style="margin-top: 40px;">
-                        <h2>OUR PRICING</h2>
-                    </div>
-                    {% for data in workspace_objs %}
-                    
-                    <h2>{{data.workspace_name}}</h2>
-                    <p>{{data.address}}</p>
-                    <p>{{data.price}}</p>
-                    
-                    <div class="row">
-                       
-                        {% for image in data.workspace_images.all %}
-                        <div class="col-sm-3">
-                            <div class="price-tab">
-                                <!-- <img src="{% static 'assets/images/price/price_01.jpg'%} " alt="price-1"> -->
-                                <img src="{{image.images.url}} " alt="price-1">
-                            </div>
-                           
-                        </div>
-                        {% endfor %}
-                        <br/>
-                       {% endfor %}
-                    </div>
+{% block body %}
+
+<!--  ************************* Pricing Starts Here ************************** -->
+
+<section id="pricing" class="row pricing">
+    <div class="container">
+        <div class="row sec-title" style="margin-top: 40px;">
+            <h2>OUR PRICING</h2>
+        </div>
+        {% for data in workspace_objs %}
+
+        <h2>{{data.workspace_name}}</h2>
+        <p>{{data.address}}</p>
+        <p>{{data.price}}</p>
+
+        <div class="row">
+
+            {% for image in data.workspace_images.all %}
+            <div class="col-sm-3">
+                <div class="price-tab">
+                    <!-- <img src="{% static 'assets/images/price/price_01.jpg'%} " alt="price-1"> -->
+
+                    <img src="{{image.images.url}} " alt="price-1">
                 </div>
-            </section>
-        
-        <!-- ######## Pricing End ####### -->
+
+            </div>
+            {% endfor %}
+            <br />
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ######## Pricing End ####### -->
 {% endblock body%}

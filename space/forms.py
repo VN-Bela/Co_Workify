@@ -11,4 +11,4 @@ class Workspace_Form(forms.ModelForm):
 class SpaceImage(forms.ModelForm):
     class Meta:
         model = WorkspaceImage
-        fields = ["images"]
+        fields = ["images","category"]

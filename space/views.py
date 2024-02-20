@@ -1,9 +1,9 @@
 from typing import Any
 from django.forms import BaseModelForm
-from django.urls import reverse
+from django.urls import reverse,reverse_lazy
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView, CreateView, ListView, DetailView
+from django.views.generic import TemplateView, CreateView, ListView, DetailView,DeleteView
 from .models import WorkspaceImage, Workspace
 from .forms import Workspace_Form, SpaceImage
 
@@ -71,7 +71,7 @@ class RetriveWorkspace(DetailView):
 
 class SpaceImageView(CreateView):
     model = WorkspaceImage
-    template_name = "space/index.html"
+    #template_name = "space/index.html"
     form_class = SpaceImage
 
     def form_valid(self, form):
@@ -82,3 +82,15 @@ class SpaceImageView(CreateView):
 
     def get_success_url(self) -> str:
         return self.request.META.get("HTTP_REFERER")
+
+class DeleteImageview(DeleteView):
+    model=WorkspaceImage
+    template_name="space/delete.html"
+    # success_url= reverse_lazy("SpaceImageView")
+    # after delete  content page stay same page
+        
+    def get_success_url(self) -> str:
+        workspace_id = self.kwargs["workspace_id"]
+        return reverse_lazy('RetriveWorkspace', kwargs={'pk': workspace_id})
+        # return redirect(self.request.path)
+    

@@ -50,10 +50,22 @@ class Workspace(models.Model):
     def __str__(self):
         return self.workspace_name
 
+class SpaceCategory(models.Model):
+    name=models.CharField(max_length=200)
 
+    class Meta:
+        verbose_name_plural = "Space categories"
+
+    def __str__(self) -> str:
+        return self.name
+
+
+# related_name : reverse relationship 
 class WorkspaceImage(models.Model):
     workspace_name = models.ForeignKey(Workspace, on_delete=models.CASCADE, related_name="workspace_images")
     images = models.ImageField(upload_to="images")
+    category=models.ForeignKey(SpaceCategory,on_delete=models.CASCADE,related_name="category")
 
     def __str__(self):
         return self.workspace_name.workspace_name
+

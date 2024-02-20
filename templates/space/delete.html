@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+<section id="meeting-room" class="meeting-room row">
+    <div class="container mt-5" >
+        <h2> Are your Sure ? you Want to Delete?</h2>
+        <form action="" method="post">
+            {% csrf_token %} 
+            <input type="submit" value="Delete" class="btn btn-danger">
+            <a href="#" class="btn btn-warnning" >Cancle</a>
+        </form>
+      
+    </div>
+</section>
+{% endblock %}
