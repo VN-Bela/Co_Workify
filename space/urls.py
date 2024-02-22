@@ -9,6 +9,7 @@ from .views import (
     RetriveWorkspace,
     SpaceImageView,
     DeleteImageview,
+    OrganizeView,
 )
 
 urlpatterns = [
@@ -21,5 +22,6 @@ urlpatterns = [
     path("workspace/<int:pk>/", RetriveWorkspace.as_view(), name="RetriveWorkspace"),
     path("spaceimage/<int:pk>/", SpaceImageView.as_view(), name="SpaceImageView"),
     path("deleteImage/<int:pk>/<workspace_id>/", DeleteImageview.as_view(), name="DeleteImageView"),
+    path("application", OrganizeView.as_view(), name="application"),
 
 ]

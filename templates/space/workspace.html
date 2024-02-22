@@ -11,15 +11,15 @@
     <div class="container mt-5">
         <table>
             <tr>
-                <th> Workspace Name</td>
-                <th> Address</td>
-                <th> Price</td>
-                <th> Avaiable Desk</td>
+                <th> Workspace Name</th>
+                <th> Address</th>
+              
+                <th> Avaiable Desk</th>
             </tr>
             <tr>
                 <td> {{object.workspace_name}}</td>
                 <td> {{object.address}}</td>
-                <td> {{object.price}}</td>
+               
                 <td> {{object.desk}}</td>
             </tr>
         </table>
@@ -35,6 +35,7 @@
             {% for image in images %}
             <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter hdpe">
                 <img src="{{image.images.url}}" alt="image" style="width: 250px; height: 250px;" /><br/>
+                <p>{{image.category.name}}</p>
                 <a href="{% url 'DeleteImageView' image.pk object.pk %}" class="btn btn-danger">Delete</a>
             </div>
             {% endfor %}

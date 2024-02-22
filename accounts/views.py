@@ -48,3 +48,6 @@ class SignUpView(View):
         else:
             return HttpResponse("Password does not match.")
         return redirect("login")
+def custom_logout(request):
+    logout(request)
+    return redirect("/")

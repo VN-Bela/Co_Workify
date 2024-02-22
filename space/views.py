@@ -1,10 +1,16 @@
 from typing import Any
 from django.forms import BaseModelForm
-from django.urls import reverse,reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView, CreateView, ListView, DetailView,DeleteView
-from .models import WorkspaceImage, Workspace
+from django.views.generic import (
+    TemplateView,
+    CreateView,
+    ListView,
+    DetailView,
+    DeleteView,
+)
+from .models import WorkspaceImage, Workspace, SpaceCategory
 from .forms import Workspace_Form, SpaceImage
 
 # Create your views here.
@@ -24,13 +30,26 @@ class ContactView(TemplateView):
 
 class PriceView(TemplateView):
     template_name = "space/price.html"
+
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         data = super().get_context_data(**kwargs)
         data["workspace_objs"] = Workspace.objects.all()
+        data["role"] = (
+            self.request.user.role
+            if self.request.user.is_authenticated
+            else "anonymous_user"
+        )
         return data
 
-class GallaryView(TemplateView):
+
+class GallaryView(ListView):
+    model = WorkspaceImage
     template_name = "space/gallary.html"
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["categories"] = SpaceCategory.objects.all()
+        return context
 
 
 class SellerView(CreateView):
@@ -71,7 +90,7 @@ class RetriveWorkspace(DetailView):
 
 class SpaceImageView(CreateView):
     model = WorkspaceImage
-    #template_name = "space/index.html"
+    # template_name = "space/index.html"
     form_class = SpaceImage
 
     def form_valid(self, form):
@@ -83,14 +102,18 @@ class SpaceImageView(CreateView):
     def get_success_url(self) -> str:
         return self.request.META.get("HTTP_REFERER")
 
+
 class DeleteImageview(DeleteView):
-    model=WorkspaceImage
-    template_name="space/delete.html"
+    model = WorkspaceImage
+    template_name = "space/delete.html"
     # success_url= reverse_lazy("SpaceImageView")
     # after delete  content page stay same page
-        
+
     def get_success_url(self) -> str:
         workspace_id = self.kwargs["workspace_id"]
-        return reverse_lazy('RetriveWorkspace', kwargs={'pk': workspace_id})
+        return reverse_lazy("RetriveWorkspace", kwargs={"pk": workspace_id})
         # return redirect(self.request.path)
-    
+
+
+class OrganizeView(TemplateView):
+    template_name = "space/application.html"

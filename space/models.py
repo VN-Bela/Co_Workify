@@ -44,7 +44,6 @@ class Workspace(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     address = models.TextField()
     workspace_name = models.CharField(max_length=200)
-    price = models.DecimalField(decimal_places=2, max_digits=10)
     desk = models.IntegerField()
 
     def __str__(self):
@@ -52,7 +51,7 @@ class Workspace(models.Model):
 
 class SpaceCategory(models.Model):
     name=models.CharField(max_length=200)
-
+    price = models.DecimalField(decimal_places=2, max_digits=10)
     class Meta:
         verbose_name_plural = "Space categories"
 
