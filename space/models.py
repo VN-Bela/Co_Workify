@@ -67,4 +67,10 @@ class WorkspaceImage(models.Model):
 
     def __str__(self):
         return self.workspace_name.workspace_name
-
+    
+    def get_amount(self):
+        return self.category.price
+    
+    def get_seller_name(self):
+        user = self.workspace_name.user
+        return user.first_name + " " + user.last_name

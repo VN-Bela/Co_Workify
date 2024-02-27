@@ -1,4 +1,5 @@
 from typing import Any
+from django.shortcuts import get_object_or_404
 from django.forms import BaseModelForm
 from django.urls import reverse, reverse_lazy
 from django.http import HttpRequest, HttpResponse
@@ -117,3 +118,16 @@ class DeleteImageview(DeleteView):
 
 class OrganizeView(TemplateView):
     template_name = "space/application.html"
+    def get_context_data(self, **kwargs: Any):
+        data= super().get_context_data(**kwargs)
+        image_pk = kwargs.get("image_pk")
+        # image = WorkspaceImage.objects.filter(pk=image_pk).first()
+        image = get_object_or_404(WorkspaceImage, pk=image_pk)
+        data["amount"] = image.get_amount()
+        data["Adv_amount"] = image.get_amount()/2
+        data["seller"] = image.get_seller_name()
+        data["address"] = image.workspace_name.address
+        data["workspace_name"] = image.workspace_name.workspace_name
+        user = self.request.user
+        data["buyer"] = user.first_name + " " + user.last_name
+        return data

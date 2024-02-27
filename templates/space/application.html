@@ -3,9 +3,9 @@
 {% block body %}
 <section id="pricing" class="row pricing">
     <div class="container">
-        <div class="row sec-title" style="margin-top: 40px;">
+        <div class="row sec-title">
             <h5>Terms and Conditions for Co-Working Space Rental Agreement</h5>
-            <p>This agreement is entered into between [Buyer/Client Name] and [Co-Working Space Provider Name],
+            <p>This agreement is entered into between [{{seller}}] and [{{workspace_name}}],
                 regarding the rental of co-working space as outlined below:</p>
         </div>
         <div class="row">
@@ -20,8 +20,8 @@
                     during regular business hours.
                 </p>
                 <li>3. Rental Fees:</li>
-                <p>The Buyer agrees to pay the Provider a rental fee of [amount] per [day/week/month], payable in
-                    advance on [payment schedule].
+                <p>The Buyer agrees to pay the Provider a rental fee of [{{amount}}] per [day/week/month], payable in
+                    advance on [{{Adv_amount}}].
                     Any additional services requested by the Buyer beyond the scope of this Agreement may incur
                     additional charges as agreed upon by both parties.
                 </p>
@@ -54,9 +54,9 @@
                     Buyer's use of the rented space.</p>
                 <li>9. Governing Law:</li>
                 <p>
-                    This Agreement shall be governed by and construed in accordance with the laws of [jurisdiction].
+                    This Agreement shall be governed by and construed in accordance with the laws of [{{address}}].
                     Any disputes arising under this Agreement shall be resolved through arbitration in [city],
-                    [jurisdiction].</p>
+                    [{{address}}].</p>
                 <li>10. Entire Agreement:</li>
                 <p>
                     This Agreement constitutes the entire understanding between the parties with respect to the subject
@@ -64,12 +64,12 @@
                     IN WITNESS WHEREOF, the parties hereto have executed this Agreement as of the date first above
                     written.
                 </p>
-                <h6>[Buyer Name]</h6>
-                <h6>[Provider Name]</h6>
-
             </ol>
-
+                <h6>[{{buyer}}]</h6>
+                <h6>[{{seller}}]</h6>
+       
         </div>
+        <button class="btn btn-info"><a href="{% url 'sendmail' seller %}">confirm</a></button>
     </div>
 </section>
 {% endblock body %}

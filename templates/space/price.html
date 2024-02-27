@@ -26,7 +26,7 @@
                     <img src="{{image.images.url}} " alt="price-1">
                     <p>{{image.category.name}} | Rs.{{image.category.price}}/-</p>
                     {% if role == "buyer" %}
-                    <a href="{% url 'application' %}" class="btn btn-info btn-sm">Apply</a>
+                    <a href="{% url 'application' image.pk %}" class="btn btn-info btn-sm">Apply</a>
                     {% endif %}
                 </div>
 
