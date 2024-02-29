@@ -1,11 +1,14 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.views import View
-from space.models import User
+from django.views.generic import TemplateView,CreateView,ListView
+from space.models import User,Workspace,WorkspaceImage
+from accounts.models import BuyerOrganization
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
 from django.core.mail import send_mail
 from django.conf import settings
+from space.forms import Workspace_Form
 
 
 # Create your views here.
@@ -58,11 +61,10 @@ def custom_logout(request):
 
 
 class confrim_Registration(View):
-   
-
-    def get(self, request, *args, **kwargs):
-        seller = kwargs.get('seller')
-        print(seller)
+     def get(self, request, *args, **kwargs):
+        seller_email = kwargs.get('seller_email')
+        image_pk = kwargs.get('image_pk')
+        image_obj= get_object_or_404(WorkspaceImage, pk=image_pk)
         buyer_subject = "Co-Working Space Rental Agreement Confirmation"
         seller_subject = "Confirmation of Co-Working Space Rental Agreement"
         buyer_message = """Dear [Buyer/Seller],
@@ -99,6 +101,39 @@ class confrim_Registration(View):
             subject=seller_subject,
             message=seller_message,
             from_email=settings.EMAIL_HOST_USER,
-            recipient_list=[request.user.email],
+            recipient_list=[seller_email],
         )
+        BuyerOrganization.objects.create(user=request.user, space=image_obj)
+
+
         return redirect("/")
+
+class AddWorkspaceView(CreateView):
+    model = Workspace
+    form_class = Workspace_Form
+    template_name = "space/seller1.html"
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        if user.role == "seller":
+            workspaces = Workspace.objects.filter(user=request.user)
+            form = Workspace_Form()
+            context = {"form": form, "workspaces": workspaces}
+            return render(request, self.template_name, context=context)
+        return redirect("/")
+
+    def post(self, request, *args, **kwargs):
+        form = Workspace_Form(request.POST or None)
+        if form.is_valid():
+            workspace = form.save(commit=False)
+            workspace.user = request.user
+            workspace.save()
+        return redirect(request.path)
+
+class BuyerView(ListView):
+    model=BuyerOrganization
+    template_name="accounts/buyer.html"
+    
+    
+class SellerView(TemplateView):
+    template_name="accounts/seller.html"

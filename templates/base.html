@@ -38,7 +38,11 @@
                                     <li><a class="js-scroll-trigger" href="{%url 'contact'%}">Contact Us</a></li>
                                     
                                     {% if user.is_authenticated %}
+                                    {% if request.user.role == "buyer" %}
+                                    <li><a class="js-scroll-trigger" href="{%url 'buyer'%}"> {{user.first_name}}</a></li>
+                                    {% else %}
                                     <li><a class="js-scroll-trigger" href="{%url 'seller'%}"> {{user.first_name}}</a></li>
+                                    {% endif %}
                                     <li><a class="js-scroll-trigger" href="{%url 'logout'%}">logout</a></li>
                                     {% else %}
                                     <li><a class="js-scroll-trigger" href="{%url 'login'%}">login</a></li>

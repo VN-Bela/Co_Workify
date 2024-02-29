@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<section id="meeting-room" class="meeting-room row">
+    <div class="container">
+        <div class="row sec-title" style="margin-top: 40px;">
+            <h2>Seller</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Workspace Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for workspace in workspaces %}
+                        <tr>
+                            <td><a href="{% url 'RetriveWorkspace' workspace.pk %}" style="color: black;">{{ workspace.workspace_name }}</a></td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td>No workspaces available.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+{%endblock body%}

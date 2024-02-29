@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<div class="container">
+  <div class="row sec-title" style="margin-top: 80px;">
+    <h2>Applied Spaces </h2>
+  </div>
+    <div class="row">
+      
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">SrNo:</th>
+                <th scope="col">Space</th>
+                <th scope="col">Price</th>
+                <th scope="col">Image</th>
+                <th scope="col">Status</th>
+                <th scope="col">Action</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              {% for obj in object_list %}
+              <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{obj.space.workspace_name.workspace_name}}</td>
+                <td>{{obj.space.category.price}}</td>
+                <td><img src="{{obj.space.images.url}}" width="100px" height="100px"></td>
+                <td>{{obj.status}}</td>
+                <td><button class="btn btn-success">PayNow</button></td>
+              </tr>
+             {% endfor %}
+            </tbody>
+          </table>
+    </div>
+</div>
+
+{% endblock body%}

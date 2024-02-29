@@ -66,10 +66,10 @@
                 </p>
             </ol>
                 <h6>[{{buyer}}]</h6>
-                <h6>[{{seller}}]</h6>
+                <h6>[{{seller_email}}]</h6>
        
         </div>
-        <button class="btn btn-info"><a href="{% url 'sendmail' seller %}">confirm</a></button>
+        <button class="btn btn-info"><a href="/sendmail/{{image_pk}}/{{seller_email}}/">confirm</a></button>
     </div>
 </section>
 {% endblock body %}

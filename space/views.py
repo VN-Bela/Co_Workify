@@ -53,28 +53,6 @@ class GallaryView(ListView):
         return context
 
 
-class SellerView(CreateView):
-    model = Workspace
-    form_class = Workspace_Form
-    template_name = "space/seller.html"
-
-    def get(self, request, *args, **kwargs):
-        user = request.user
-        if user.role == "seller":
-            workspaces = Workspace.objects.filter(user=request.user)
-            form = Workspace_Form()
-            context = {"form": form, "workspaces": workspaces}
-            return render(request, self.template_name, context=context)
-        return redirect("/")
-
-    def post(self, request, *args, **kwargs):
-        form = Workspace_Form(request.POST or None)
-        if form.is_valid():
-            workspace = form.save(commit=False)
-            workspace.user = request.user
-            workspace.save()
-        return redirect(request.path)
-
 
 class RetriveWorkspace(DetailView):
     model = Workspace
@@ -128,6 +106,8 @@ class OrganizeView(TemplateView):
         data["seller"] = image.get_seller_name()
         data["address"] = image.workspace_name.address
         data["workspace_name"] = image.workspace_name.workspace_name
+        data["seller_email"]=image.workspace_name.user.email
         user = self.request.user
         data["buyer"] = user.first_name + " " + user.last_name
+        data["image_pk"]=image_pk
         return data

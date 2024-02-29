@@ -5,7 +5,6 @@ from .views import (
     ContactView,
     GallaryView,
     PriceView,
-    SellerView,
     RetriveWorkspace,
     SpaceImageView,
     DeleteImageview,
@@ -18,10 +17,9 @@ urlpatterns = [
     path("contact/", ContactView.as_view(), name="contact"),
     path("gallary/", GallaryView.as_view(), name="gallary"),
     path("price/", PriceView.as_view(), name="price"),
-    path("seller/", SellerView.as_view(), name="seller"),
     path("workspace/<int:pk>/", RetriveWorkspace.as_view(), name="RetriveWorkspace"),
     path("spaceimage/<int:pk>/", SpaceImageView.as_view(), name="SpaceImageView"),
     path("deleteImage/<int:pk>/<workspace_id>/", DeleteImageview.as_view(), name="DeleteImageView"),
-    path("application/<int:image_pk>/", OrganizeView.as_view(), name="application"),
+    path("application/<str:image_pk>/", OrganizeView.as_view(), name="application"),
 
 ]
