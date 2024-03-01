@@ -7,26 +7,37 @@
   </div>
     <div class="row">
         <table class="table">
+        
             <thead>
               <tr>
                 <th scope="col">SrNo:</th>
-                <th scope="col">OrganizationName</th>
-                <th scope="col">Price</th>
+                <th scope="col">Buyer Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">ContactNumber</th>
+                <th scope="col">Allocated Space</th>
+                <th scope="col">Amount</th>
                 <th scope="col">Image</th>
                 <th scope="col">Status</th>
-                <th scope="col">Action</th>
+               
 
               </tr>
             </thead>
+
             <tbody>
+              {% for obj in object_list %}
               <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>InProgress</td>
-                <td><button class="btn btn-success">Approve</button></td>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{obj.user.first_name}}</td>
+                <td>{{obj.user.email}}</td>
+                <td>{{obj.user.contact_number}}</td>
+                <td>{{obj.space.workspace_name.workspace_name}}</td>
+                <td>{{obj.space.get_amount}}</td>
+                <td><img src="{{obj.space.images.url}}" width="100" height="100"></td>
+                <td>{{obj.status}}</td>
+                
+             
               </tr>
+              {% endfor %}
              
             </tbody>
           </table>

@@ -1,3 +1,5 @@
+from typing import Any
+from django.db.models.query import QuerySet
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect,get_object_or_404
 from django.views import View
@@ -135,5 +137,12 @@ class BuyerView(ListView):
     template_name="accounts/buyer.html"
     
     
-class SellerView(TemplateView):
+class SellerView(ListView):
     template_name="accounts/seller.html"
+
+    def get_queryset(self) -> QuerySet[Any]:
+        user = self.request.user
+        workspaces = Workspace.objects.filter(user=user)
+        workspace_images = WorkspaceImage.objects.filter(workspace_name__in=workspaces)
+        applied_org = BuyerOrganization.objects.filter(space__in=workspace_images)
+        return applied_org

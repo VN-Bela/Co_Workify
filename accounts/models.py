@@ -5,7 +5,7 @@ from space.models import User, WorkspaceImage
 
 
 STATUS_CHOICES = (
-    ("in_progress", "In Progress"),
+    ("in_progress","InProgress"),
     ("approve", "Approve"),
     ("reject", "Reject"),
     ("allocated", "Allocated"),
