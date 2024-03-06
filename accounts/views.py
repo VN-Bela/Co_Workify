@@ -1,10 +1,10 @@
 from typing import Any
 from django.db.models.query import QuerySet
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect,get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from django.views.generic import TemplateView,CreateView,ListView
-from space.models import User,Workspace,WorkspaceImage
+from django.views.generic import TemplateView, CreateView, ListView
+from space.models import User, Workspace, WorkspaceImage
 from accounts.models import BuyerOrganization
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
@@ -64,10 +64,10 @@ def custom_logout(request):
 
 
 class confrim_Registration(View):
-     def get(self, request, *args, **kwargs):
-        seller_email = kwargs.get('seller_email')
-        image_pk = kwargs.get('image_pk')
-        image_obj= get_object_or_404(WorkspaceImage, pk=image_pk)
+    def get(self, request, *args, **kwargs):
+        seller_email = kwargs.get("seller_email")
+        image_pk = kwargs.get("image_pk")
+        image_obj = get_object_or_404(WorkspaceImage, pk=image_pk)
         buyer_subject = "Co-Working Space Rental Agreement Confirmation"
         seller_subject = "Confirmation of Co-Working Space Rental Agreement"
         buyer_message = """Dear [Buyer/Seller],
@@ -81,7 +81,7 @@ class confrim_Registration(View):
                 Best regards,
                 [Your Name]
                 [Co-Working Space Provider Name]"""
-        seller_message='''
+        seller_message = """
          Dear [Buyer/Seller],
 
         I'm writing to confirm that our Co-Working Space Rental Agreement has been finalized. Your designated space at [address] will be available for your use starting from [start date].
@@ -93,7 +93,7 @@ class confrim_Registration(View):
         Best regards,
         [Your Name]
         [Co-Working Space Provider Name]        
-    '''
+    """
         send_mail(
             subject=buyer_subject,
             message=buyer_message,
@@ -108,8 +108,8 @@ class confrim_Registration(View):
         )
         BuyerOrganization.objects.create(user=request.user, space=image_obj)
 
-
         return redirect("/")
+
 
 class AddWorkspaceView(CreateView):
     model = Workspace
@@ -133,13 +133,14 @@ class AddWorkspaceView(CreateView):
             workspace.save()
         return redirect(request.path)
 
+
 class BuyerView(ListView):
-    model=BuyerOrganization
-    template_name="accounts/buyer.html"
-    
-    
+    model = BuyerOrganization
+    template_name = "accounts/buyer.html"
+
+
 class SellerView(ListView):
-    template_name="accounts/seller.html"
+    template_name = "accounts/seller.html"
 
     def get_queryset(self) -> QuerySet[Any]:
         user = self.request.user
@@ -148,30 +149,38 @@ class SellerView(ListView):
         applied_org = BuyerOrganization.objects.filter(space__in=workspace_images)
         return applied_org
 
+
 class OrderView(View):
-     def get(self,request,pk):
-        order=BuyerOrganization.objects.filter(pk=pk).first()
+    def get(self, request, pk):
+        order = BuyerOrganization.objects.filter(pk=pk).first()
 
-        client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
+        client = razorpay.Client(
+            auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET)
+        )
 
-        data = { "amount": int(order.space.get_amount())*100, "currency": "INR", "receipt": "order_rcptid_11" }
+        data = {
+            "amount": int(order.space.get_amount()) * 100,
+            "currency": "INR",
+            "receipt": "order_rcptid_11",
+        }
         payment = client.order.create(data=data)
         print(payment)
-        order.order_id=payment["id"]
+        order.order_id = payment["id"]
         order.save()
-        context={"payment":payment}
-    
-        return render(request,"accounts/Order.html",context=context)
+        context = {"payment": payment}
+
+        return render(request, "accounts/Order.html", context=context)
+
+
 class PaymentVerificationView(View):
-    def get(self,request):
-        payment_id=request.GET.get("order_id")
-        user=request.user
-        obj=BuyerOrganization.objects.filter(user=user, order_id=payment_id).first()
+    def get(self, request):
+        payment_id = request.GET.get("order_id")
+        user = request.user
+        obj = BuyerOrganization.objects.filter(user=user, order_id=payment_id).first()
         if obj:
-            obj.status="allocated"
-            obj.is_paid=True
+            obj.status = "allocated"
+            obj.is_paid = True
             obj.save()
         else:
             return HttpResponse("Payment Failed")
         return HttpResponse("Payment Success")
-

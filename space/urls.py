@@ -19,7 +19,10 @@ urlpatterns = [
     path("price/", PriceView.as_view(), name="price"),
     path("workspace/<int:pk>/", RetriveWorkspace.as_view(), name="RetriveWorkspace"),
     path("spaceimage/<int:pk>/", SpaceImageView.as_view(), name="SpaceImageView"),
-    path("deleteImage/<int:pk>/<workspace_id>/", DeleteImageview.as_view(), name="DeleteImageView"),
+    path(
+        "deleteImage/<int:pk>/<workspace_id>/",
+        DeleteImageview.as_view(),
+        name="DeleteImageView",
+    ),
     path("application/<str:image_pk>/", OrganizeView.as_view(), name="application"),
-
 ]
