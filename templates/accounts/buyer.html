@@ -24,12 +24,12 @@
               <tr>
                 <th scope="row">{{forloop.counter}}</th>
                 <td>{{obj.space.workspace_name.workspace_name}}</td>
-                <td>{{obj.get_amount()}}</td>
+                <td>{{obj.space.get_amount}}</td>
                 <td><img src="{{obj.space.images.url}}" width="100px" height="100px"></td>
                 
                 <td>{{obj.status}}</td>
                 {% if obj.status == "approve" %}
-                <td><button class="btn btn-success">PayNow</button></td>
+                <td><a href="{% url 'order' obj.pk %}" class="btn btn-success">PayNow</a></td>
                 {% else %}
                 <td><button class="btn btn-success" disabled >PayNow</button></td>
                 {% endif %}

@@ -11,6 +11,7 @@ from django.contrib.auth.hashers import make_password
 from django.core.mail import send_mail
 from django.conf import settings
 from space.forms import Workspace_Form
+import razorpay
 
 
 # Create your views here.
@@ -146,3 +147,31 @@ class SellerView(ListView):
         workspace_images = WorkspaceImage.objects.filter(workspace_name__in=workspaces)
         applied_org = BuyerOrganization.objects.filter(space__in=workspace_images)
         return applied_org
+
+class OrderView(View):
+     def get(self,request,pk):
+        order=BuyerOrganization.objects.filter(pk=pk).first()
+
+        client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
+
+        data = { "amount": int(order.space.get_amount())*100, "currency": "INR", "receipt": "order_rcptid_11" }
+        payment = client.order.create(data=data)
+        print(payment)
+        order.order_id=payment["id"]
+        order.save()
+        context={"payment":payment}
+    
+        return render(request,"accounts/Order.html",context=context)
+class PaymentVerificationView(View):
+    def get(self,request):
+        payment_id=request.GET.get("order_id")
+        user=request.user
+        obj=BuyerOrganization.objects.filter(user=user, order_id=payment_id).first()
+        if obj:
+            obj.status="allocated"
+            obj.is_paid=True
+            obj.save()
+        else:
+            return HttpResponse("Payment Failed")
+        return HttpResponse("Payment Success")
+

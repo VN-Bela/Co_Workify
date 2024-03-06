@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import loginView, SignUpView,custom_logout,confrim_Registration,BuyerView,AddWorkspaceView,SellerView
+from .views import loginView, SignUpView,custom_logout,confrim_Registration,BuyerView,AddWorkspaceView,SellerView,OrderView,PaymentVerificationView
 # from django.contrib.auth.views import LogoutView
 
 
@@ -12,5 +12,7 @@ urlpatterns = [
     path("buyer/", BuyerView.as_view(), name="buyer"),
     path("seller/", SellerView.as_view(), name="seller"),
     path("workspace/", AddWorkspaceView.as_view(), name="workspace"),
+    path("order/<int:pk>/", OrderView.as_view(), name="order"),
+    path("paymentverification/", PaymentVerificationView.as_view(), name="paymentverification"),
 
 ]
