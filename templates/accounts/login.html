@@ -3,21 +3,18 @@
 {% block body %}
 
 <div class="container p-5 mt-5">
-    <form action="" method="post">
-      {% csrf_token %}
-<div class="mb-3">
-    <label for="exampleFormControlInput1" class="form-label">Email address</label>
-    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" name="email">
-  </div>
+  <h3>LogIn</h3>
+  <br/>
+  <div class="row">
+    <div class="col-md-4">
+      <form action="" method="post">
+        {% csrf_token %}
 
-  <div class="mb-3">
-    <label for="exampleFormControlPassword" class="form-label">Password</label>
-    <input type="password" class="form-control" id="exampleFormControlPassword" placeholder="Enter your password" name="password" >
+        {{form}}
+        <br />
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+      </form>
+    </div>
   </div>
-
- 
-  <button type="submit" class="btn btn-primary">Login</button>
-</form>
 </div>
-
 {% endblock %}

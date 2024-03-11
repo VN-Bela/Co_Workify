@@ -1,5 +1,6 @@
 from typing import Any
 from django.db.models.query import QuerySet
+from django.forms import BaseModelForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
@@ -11,51 +12,61 @@ from django.contrib.auth.hashers import make_password
 from django.core.mail import send_mail
 from django.conf import settings
 from space.forms import Workspace_Form
+from accounts.forms import UserRegistration
 import razorpay
 
 
 # Create your views here.
-class loginView(View):
-    template_name = "accounts/login.html"
+# class loginView(View):
+#     template_name = "accounts/login.html"
 
-    def get(self, request):
-        return render(request, self.template_name)
+#     def get(self, request):
+#         return render(request, self.template_name)
 
-    def post(self, request):
-        email = request.POST["email"]
-        password = request.POST["password"]
-        user = User.objects.filter(email=email)
-        if not user.exists():
-            return HttpResponse("Account not found!!")
+#     def post(self, request):
+#         email = request.POST["email"]
+#         password = request.POST["password"]
+#         user = User.objects.filter(email=email)
+#         if not user.exists():
+#             return HttpResponse("Account not found!!")
 
-        user_obj = authenticate(email=email, password=password)
-        if user_obj:
-            login(request, user_obj)
-            if user_obj.role == "seller":
-                return redirect("seller")
-            elif user_obj.role == "buyer":
-                return redirect("price")
-            else:
-                return redirect("/")
-        return HttpResponse("Invalid Credentials")
+#         user_obj = authenticate(email=email, password=password)
+#         if user_obj:
+#             login(request, user_obj)
+#             if user_obj.role == "seller":
+#                 return redirect("seller")
+#             elif user_obj.role == "buyer":
+#                 return redirect("price")
+#             else:
+#                 return redirect("/")
+#         return HttpResponse("Invalid Credentials")
 
 
-class SignUpView(View):
-    def get(self, request):
-        return render(request, "accounts/signup.html")
+class SignUpView(CreateView):
+    template_name="accounts/signup.html"
+    form_class=UserRegistration
+    success_url = "/login/"
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        form.instance.password=make_password(form.cleaned_data["password"])
 
-    def post(self, request):
-        email = request.POST["email"]
-        password = request.POST["password"]
-        confirm_password = request.POST["confirm_password"]
-        role = request.POST["role"]
-        if password == confirm_password:
-            User.objects.create(
-                email=email, password=make_password(password), role=role
-            )
-        else:
-            return HttpResponse("Password does not match.")
-        return redirect("login")
+        return super().form_valid(form)
+
+
+    # def get(self, request):
+    #     return render(request, "accounts/signup.html")
+
+    # def post(self, request):
+    #     email = request.POST["email"]
+    #     password = request.POST["password"]
+    #     confirm_password = request.POST["confirm_password"]
+    #     role = request.POST["role"]
+    #     if password == confirm_password:
+    #         User.objects.create(
+    #             email=email, password=make_password(password), role=role
+    #         )
+    #     else:
+    #         return HttpResponse("Password does not match.")
+    #     return redirect("login")
 
 
 def custom_logout(request):
