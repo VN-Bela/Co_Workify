@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path,include
 from .forms import LoginForm
 from django.contrib.auth import views as auth_views
 from .views import (
@@ -11,15 +11,18 @@ from .views import (
     SellerView,
     OrderView,
     PaymentVerificationView,
+    CustomLoginView,
+    
 )
 
 # from django.contrib.auth.views import LogoutView
 
 
 urlpatterns = [
-    path("login/", auth_views.LoginView.as_view(template_name='accounts/login.html',authentication_form=LoginForm), name="login"),
+    path("accounts/login/",CustomLoginView.as_view(), name="login"),
     path("signup/", SignUpView.as_view(), name="signup"),
     path("logout/", custom_logout, name="logout"),
+    path("",include("django.contrib.auth.urls")),
     path(
         "sendmail/<int:image_pk>/<str:seller_email>/",
         confrim_Registration.as_view(),
@@ -34,4 +37,5 @@ urlpatterns = [
         PaymentVerificationView.as_view(),
         name="paymentverification",
     ),
+    
 ]
