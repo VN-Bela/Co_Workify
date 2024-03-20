@@ -21,9 +21,9 @@ from django.contrib.auth.views import LoginView
 
 
 class SignUpView(CreateView):
-    template_name="accounts/signup.html"
+    template_name="registration/signup.html"
     form_class=UserRegistration
-    success_url = "/accounts/login/"
+    success_url = "/registration/login/"
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         pass1=form.cleaned_data["password"]
         pass2=form.cleaned_data["confirm_password"]
@@ -112,11 +112,11 @@ class AddWorkspaceView(CreateView):
 
 class BuyerView(ListView):
     model = BuyerOrganization
-    template_name = "accounts/buyer.html"
+    template_name = "registration/buyer.html"
 
 
 class SellerView(ListView):
-    template_name = "accounts/seller.html"
+    template_name = "registration/seller.html"
 
     def get_queryset(self) -> QuerySet[Any]:
         user = self.request.user
@@ -145,7 +145,7 @@ class OrderView(View):
         order.save()
         context = {"payment": payment}
 
-        return render(request, "accounts/Order.html", context=context)
+        return render(request, "registration/Order.html", context=context)
 
 
 class PaymentVerificationView(View):
@@ -163,7 +163,7 @@ class PaymentVerificationView(View):
 
 
 class CustomLoginView(LoginView):
-    template_name="accounts/login.html"
+    template_name="registration/login.html"
     form_class=LoginForm
     model=User
 
