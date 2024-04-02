@@ -14,7 +14,7 @@ class UserRegistration(forms.ModelForm):
             "last_name": forms.TextInput(attrs={"class": "form-control"}),
             "email": forms.EmailInput(attrs={"class": "form-control"}),
             "password": forms.PasswordInput(attrs={"class": "form-control"}),
-             "role": forms.Select(attrs={"class": "form-control"}),
+            "role": forms.Select(attrs={"class": "form-control"}),
           
         }
 class LoginForm(AuthenticationForm):

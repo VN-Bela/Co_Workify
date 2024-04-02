@@ -141,7 +141,7 @@ class OrderView(View):
         }
         payment = client.order.create(data=data)
         print(payment)
-        order.order_id = payment["id"]
+        order.order_id = payment["id"]  
         order.save()
         context = {"payment": payment}
 

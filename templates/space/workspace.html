@@ -13,19 +13,18 @@
             <tr>
                 <th> Workspace Name</th>
                 <th> Address</th>
-              
                 <th> Avaiable Desk</th>
             </tr>
             <tr>
                 <td> {{object.workspace_name}}</td>
                 <td> {{object.address}}</td>
-               
                 <td> {{object.desk}}</td>
             </tr>
         </table>
         <form action="{% url 'SpaceImageView' object.pk %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{form.as_table}} <input type="submit" name="Submit" class="btn btn-primary" />
+            {{form.as_table}} 
+        <input type="submit" name="Submit" class="btn btn-primary" />
         </form>
     </div>
 
