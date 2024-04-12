@@ -23,7 +23,7 @@ from django.contrib.auth.views import LoginView
 class SignUpView(CreateView):
     template_name="registration/signup.html"
     form_class=UserRegistration
-    success_url = "/registration/login/"
+    success_url = "login/"
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         pass1=form.cleaned_data["password"]
         pass2=form.cleaned_data["confirm_password"]
@@ -113,6 +113,8 @@ class AddWorkspaceView(CreateView):
 class BuyerView(ListView):
     model = BuyerOrganization
     template_name = "registration/buyer.html"
+    def get_queryset(self) -> QuerySet[Any]:
+        return super().get_queryset().order_by("-pk")
 
 
 class SellerView(ListView):

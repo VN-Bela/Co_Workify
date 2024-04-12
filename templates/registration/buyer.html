@@ -11,10 +11,12 @@
             <thead>
               <tr>
                 <th scope="col">SrNo:</th>
+                <th scope="col">Registration Id:</th>
                 <th scope="col">Space</th>
                 <th scope="col">Price</th>
                 <th scope="col">Image</th>
                 <th scope="col">Status</th>
+                <th scope="col">Register Date</th>
                 <th scope="col">Action</th>
 
               </tr>
@@ -23,11 +25,13 @@
               {% for obj in object_list %}
               <tr>
                 <th scope="row">{{forloop.counter}}</th>
+                <th scope="row">reg_id_001_{{obj.pk}}</th>
                 <td>{{obj.space.workspace_name.workspace_name}}</td>
                 <td>{{obj.space.get_amount}}</td>
                 <td><img src="{{obj.space.images.url}}" width="100px" height="100px"></td>
                 
                 <td>{{obj.status}}</td>
+                <td>{{obj.create_date}}</td>
                 {% if obj.status == "approve" %}
                 <td><a href="{% url 'order' obj.pk %}" class="btn btn-success">PayNow</a></td>
                 {% else %}

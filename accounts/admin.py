@@ -9,4 +9,4 @@ admin.site.register(User)
 
 @admin.register(BuyerOrganization)
 class BuyerOrganizationAdmin(admin.ModelAdmin):
-    list_display = ["pk", "user", "status", "order_id", "is_paid"]
+    list_display = ["pk", "user", "status", "order_id", "is_paid", "create_date"]

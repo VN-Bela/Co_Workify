@@ -22,3 +22,4 @@ class BuyerOrganization(models.Model):
     )
     order_id = models.CharField(max_length=100, null=True, blank=True)
     is_paid = models.BooleanField(default=False)
+    create_date=models.DateTimeField(auto_now_add=True)
