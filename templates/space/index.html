@@ -65,7 +65,7 @@
                                     <div class="sub-title white-text">Fully Furnished, Superfast Internet, Meeting Rooms, Lockers</div>
                                 </div>
 
-                                <div class="tp-caption sfb sfb tp-resizeme" data-x="center" data-hoffset="0" data-y="center" data-voffset="90" data-speed="1500" data-start="1500" data-easing="easeOutExpo" data-splitin="none" data-splitout="none" data-elementdelay="0.01" data-endelementdelay="0.3" data-endspeed="1200" data-endeasing="Power4.easeIn"><a href="contact.html" class="theme-btn btn-style-one">Book a Seat Now</a> &ensp; <a href="contact.html" class="theme-btn btn-style-two">View Pricing</a></div>
+                                <div class="tp-caption sfb sfb tp-resizeme" data-x="center" data-hoffset="0" data-y="center" data-voffset="90" data-speed="1500" data-start="1500" data-easing="easeOutExpo" data-splitin="none" data-splitout="none" data-elementdelay="0.01" data-endelementdelay="0.3" data-endspeed="1200" data-endeasing="Power4.easeIn"><a href="{% url 'price' %}" class="theme-btn btn-style-one">Book a Seat Now</a> &ensp; <a href="{% url 'price' %}" class="theme-btn btn-style-two">View Pricing</a></div>
 
                             </li>
                             
@@ -150,30 +150,5 @@
                        
                     </div>
                 </div>
-            </section>
-            
-            <!-- ######## Meeting Room End ####### -->      
-            
-        
-            
-             <!--  ************************* Location Starts Here ************************** -->
-             
-             <div id="location" class="section location row">
-                 <div class="col-sm-4 no-padding map">
-                     <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d28708065.234234795!2d-66.01675464586651!3d58.515900487952095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1529505418130"  height="350" frameborder="0" style="border:0" allowfullscreen></iframe>
-                 </div>
-                 <div class="col-sm-8 det">
-                     <div class="row sec-title">
-                            <h2>VELLAYAMBALAM</h2>
-                    </div>
-                    <div class="row">
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including  </p>
-                    </div>
-                 </div>
-             </div>
-            
-             <!-- ######## Location End ####### -->
-             
-             
-         
+            </section>       
 {% endblock body %}

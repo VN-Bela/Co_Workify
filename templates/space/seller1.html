@@ -4,7 +4,7 @@
 <section id="meeting-room" class="meeting-room row">
     <div class="container">
         <div class="row sec-title" style="margin-top: 40px;">
-            <h2>Seller</h2>
+            <h2>Workspace Information</h2>
         </div>
         <div class="row">
             <div class="col-md-6 ">
@@ -17,24 +17,11 @@
             </div>
             
             <div class="col-md-6 p-5">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Workspace Name</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for workspace in workspaces %}
-                        <tr>
-                            <td><a href="{% url 'RetriveWorkspace' workspace.pk %}" style="color: black;">{{ workspace.workspace_name }}</a></td>
-                        </tr>
-                        {% empty %}
-                        <tr>
-                            <td>No workspaces available.</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                <h5> Detail Information for Any workspace</h5>
+                {% for workspace in workspaces %}
+                                <a href="{% url 'RetriveWorkspace' workspace.pk %}" style="color: black;">Add Infomation {{workspace.workspace_name}}</a><br/>
+                
+                {% endfor %}
             </div>
         </div>
     </div>

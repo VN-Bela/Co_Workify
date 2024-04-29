@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+<section id="pricing" class="row pricing">
+    <div class="container">
+        <div class="row sec-title" style="margin-top: 40px;">
+            <h2>Welcome to Our Site {{request.user.first_name}}({{user.role}})</h2>
+        </div>
+        <div class="row">
+        <div class="col-md-6 p-5">
+        <p>Your Workspace Information</p>
+        <a href="{% url 'seller' %}" class="btn btn-info">Applied Workspace Detail</a>
+        
+        <a href="{% url 'workspace' %}" class="btn btn-info">Add Workspace</a>
+        </div>
+    </div>
+</section>
+{%  endblock body %}

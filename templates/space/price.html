@@ -9,31 +9,33 @@
         <div class="row sec-title" style="margin-top: 40px;">
             <h2>OUR PRICING </h2>
         </div>
-        {% for data in workspace_objs %}
-
-        <p><b>{{data.workspace_name}}</b>|
-            {{data.address}}
-
-        </p>
+        <div class="row sec-title">
+            <form method="post">
+                {% csrf_token %}
+                <select class="form-select" name="space">
+                    {% for space in space_details %}
+                    <option value="{{space.pk}}">{{space.name}}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-info btn-sm">Submit</button>
+            </form>
+        </div>
 
         <div class="row">
-
-            {% for image in data.workspace_images.all %}
+            {% for data in WorkspaceImage_details %}
             <div class="col-sm-3">
                 <div class="price-tab">
-                    <!-- <img src="{% static 'assets/images/price/price_01.jpg'%} " alt="price-1"> -->
-
-                    <img src="{{image.images.url}} " alt="price-1">
-                    <p>{{image.category.name}} | Rs.{{image.category.price}}/-</p>
+                    <img src="{{data.images.url}} " alt="price-1">
+                    <p>{{data.category.name}} | {{data.workspace_name.address}} | Rs.{{data.category.price}}/-</p>
                     {% if role == "buyer" %}
-                    <a href="{% url 'application' image.pk %}" class="btn btn-info btn-sm">Apply</a>
+                    <a href="{% url 'application' data.pk %}" class="btn btn-info btn-sm">Apply</a>
                     {% endif %}
                 </div>
 
             </div>
             {% endfor %}
             <br />
-            {% endfor %}
+
         </div>
     </div>
 </section>

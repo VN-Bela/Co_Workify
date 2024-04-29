@@ -7,8 +7,12 @@ class Workspace_Form(forms.ModelForm):
         model = Workspace
         exclude = ["user"]
         widgets = {
-            "address": forms.Textarea(attrs={"rows": 2, "cols": 20,"class":"form-control"}),
             "workspace_name": forms.TextInput(attrs={"class":"form-control"}),
+            "address": forms.Textarea(attrs={"rows": 2, "cols": 20,"class":"form-control"}),
+            "city": forms.TextInput(attrs={"class":"form-control"}),
+            "state": forms.TextInput(attrs={"class":"form-control"}),
+            "country": forms.TextInput(attrs={"class":"form-control"}),
+            "spacecategory": forms.Select(attrs={"class":"form-control"}),
             "desk": forms.TextInput(attrs={"class":"form-control"}),
             }
 

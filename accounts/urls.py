@@ -12,6 +12,7 @@ from .views import (
     OrderView,
     PaymentVerificationView,
     CustomLoginView,
+    SellerProfileView
     
 )
 
@@ -37,5 +38,6 @@ urlpatterns = [
         PaymentVerificationView.as_view(),
         name="paymentverification",
     ),
+    path("sprofile/", SellerProfileView.as_view(), name="sprofile"),
     
 ]

@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView, CreateView, ListView
 from space.models import User, Workspace, WorkspaceImage
-from accounts.models import BuyerOrganization
+from accounts.models import BuyerOrganization,SellerOrganization
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
 from django.core.mail import send_mail
@@ -186,3 +186,13 @@ class CustomLoginView(LoginView):
         else:
             form.add_error(None,"Invalid username and password")
             return self.form_invalid(form)   
+        
+class SellerProfileView(TemplateView):
+    model=SellerOrganization
+    template_name="registration/seller_profile.html"
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        user=self.request.user
+        seller_org=SellerOrganization.objects.filter(user=user).first()
+        context["seller_org"]=seller_org
+        return context

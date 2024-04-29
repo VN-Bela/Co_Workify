@@ -1,5 +1,5 @@
 from typing import Any
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import (
     TemplateView,
@@ -7,6 +7,7 @@ from django.views.generic import (
     ListView,
     DetailView,
     DeleteView,
+    View,
 )
 from .models import WorkspaceImage, Workspace, SpaceCategory
 from .forms import Workspace_Form, SpaceImage
@@ -26,19 +27,29 @@ class ContactView(TemplateView):
     template_name = "space/contact.html"
 
 
-class PriceView(TemplateView):
+class PriceView(View):
     template_name = "space/price.html"
+    def get(self,request):
+        workspace_details=Workspace.objects.all()
+        space_details=SpaceCategory.objects.all()
+        WorkspaceImage_details=WorkspaceImage.objects.all()
+        role=request.user.role if request.user.is_authenticated else None
+        context={"workspace_details": workspace_details,"space_details":space_details,"WorkspaceImage_details":WorkspaceImage_details,"role":role}
+        return render(request,self.template_name,context)
 
-    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-        data = super().get_context_data(**kwargs)
-        data["workspace_objs"] = Workspace.objects.all()
-        data["role"] = (
-            self.request.user.role
-            if self.request.user.is_authenticated
-            else "anonymous_user"
-        )
-        return data
-
+    def post(self,request):
+        #address = request.POST["address"]
+        space = request.POST["space"]
+        # workspace_details=Workspace.objects.filter(address=address)
+        space_details=SpaceCategory.objects.all()
+        WorkspaceImage_details=WorkspaceImage.objects.all()
+        # if address:
+        #     WorkspaceImage_details = WorkspaceImage_details.filter(workspace_name__address=address)
+        if space:
+            WorkspaceImage_details = WorkspaceImage_details.filter(category__pk=space)
+        role=request.user.role if request.user.is_authenticated else None
+        context={"space_details":space_details,"WorkspaceImage_details":WorkspaceImage_details,"role":role}
+        return render(request,self.template_name,context)
 
 class GallaryView(ListView):
     model = WorkspaceImage

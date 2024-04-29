@@ -6,6 +6,7 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 UserRoles = (("buyer", "Buyer"), ("seller", "Seller"))
 GenderChoice = (("male", "Male"), ("female", "Female"), ("other", "Other"))
+SpaceCategory=(("Office_Desk","Office_Desk"),("Conference Room","Conference Room"),("Front Office","Front Office"))
 
 
 class CustomUserManager(BaseUserManager):
@@ -37,21 +38,10 @@ class User(AbstractUser):
     REQUIRED_FIELDS = []
 
     def __str__(self):
-        return self.email
-
-
-class Workspace(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    address = models.TextField()
-    workspace_name = models.CharField(max_length=200)
-    desk = models.IntegerField()
-
-    def __str__(self):
-        return self.workspace_name
-
+        return f"{self.role} - {self.email}"
 
 class SpaceCategory(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(choices=SpaceCategory, max_length=50)
     price = models.DecimalField(decimal_places=2, max_digits=10)
 
     class Meta:
@@ -59,6 +49,21 @@ class SpaceCategory(models.Model):
 
     def __str__(self) -> str:
         return self.name
+    
+class Workspace(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    workspace_name = models.CharField(max_length=200)
+    address = models.TextField()
+    city=models.CharField(max_length=200,null=True,blank=True)
+    state=models.CharField(max_length=200,null=True,blank=True)
+    country=models.CharField(max_length=200,null=True,blank=True)
+    spacecategory = models.ForeignKey(SpaceCategory, on_delete=models.CASCADE,null=True,blank=True,related_name="space_category_name")
+    desk = models.IntegerField()
+
+    def __str__(self):
+        return self.workspace_name
+
+
 
 
 # related_name : reverse relationship
