@@ -46,7 +46,7 @@ class confrim_Registration(View):
         image_obj = get_object_or_404(WorkspaceImage, pk=image_pk)
         buyer_subject = "Co-Working Space Rental Agreement Confirmation"
         seller_subject = "Confirmation of Co-Working Space Rental Agreement"
-        buyer_message = """Dear [Buyer/Seller],
+        buyer_message = """Dear [{{self.request.user}}],
 
                 I'm pleased to confirm the successful execution of our Co-Working Space Rental Agreement. Your designated space at [address] will be available from [start date].
 
@@ -58,7 +58,7 @@ class confrim_Registration(View):
                 [Your Name]
                 [Co-Working Space Provider Name]"""
         seller_message = """
-         Dear [Buyer/Seller],
+         Dear [{{self.request.user}}],
 
         I'm writing to confirm that our Co-Working Space Rental Agreement has been finalized. Your designated space at [address] will be available for your use starting from [start date].
 
@@ -155,13 +155,15 @@ class PaymentVerificationView(View):
         payment_id = request.GET.get("order_id")
         user = request.user
         obj = BuyerOrganization.objects.filter(user=user, order_id=payment_id).first()
+        
+        context = {"obj": obj}
         if obj:
             obj.status = "allocated"
             obj.is_paid = True
             obj.save()
         else:
             return HttpResponse("Payment Failed")
-        return HttpResponse("Payment Success")
+        return render(request, "space/success.html",context=context)
 
 
 class CustomLoginView(LoginView):

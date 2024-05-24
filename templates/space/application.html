@@ -3,8 +3,10 @@
 {% block body %}
 <section id="pricing" class="row pricing">
     <div class="container">
-        <div class="row sec-title">
-            <h5>Terms and Conditions for Co-Working Space Rental Agreement</h5>
+        <div class="col-md-10">
+        <div class="row pt-5">
+            <h1>Buyer Application</h1>
+           <h5>Terms and Conditions for Co-Working Space Rental Agreement</h5>
             <p>This agreement is entered into between [{{seller}}] and [{{workspace_name}}],
                 regarding the rental of co-working space as outlined below:</p>
         </div>
@@ -68,6 +70,7 @@
                 <h6>[{{buyer}}]</h6>
                 <h6>[{{seller_email}}]</h6>
        
+        </div>
         </div>
         <button class="btn btn-info"><a href="/sendmail/{{image_pk}}/{{seller_email}}/">confirm</a></button>
     </div>

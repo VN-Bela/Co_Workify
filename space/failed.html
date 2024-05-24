@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center pt-5">
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0">Payment Failed</h4>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">We're sorry, but your payment could not be processed.</h5>
+                    <p class="card-text">
+                        There was an issue processing your payment. Below are the details of the transaction attempt:
+                    </p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Amount Attempted:</strong> {{obj.space.get_amount}}</li>
+                        <li class="list-group-item"><strong>Attempt Date:</strong> {{obj.create_date}}</li>
+                        <li class="list-group-item"><strong>Transaction ID:</strong> {{obj.order_id}} </li>
+                        <li class="list-group-item"><strong>Error Message:</strong> Insufficient funds</li>
+                    </ul>
+                    <p class="mt-4">
+                        Please check your payment details and try again. If you continue to experience issues, contact our support team for assistance.
+                    </p>
+                    <a href="{% url 'buyer' %}" class="btn btn-primary">Retry Payment</a>
+            </div>
+            <br/>
+            <br/>
+        </div>
+       
+    </div>
+</div>
+{% endblock body %}

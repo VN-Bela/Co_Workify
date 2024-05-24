@@ -16,10 +16,10 @@
                 </form>
             </div>
             
-            <div class="col-md-6 p-5">
+            <div class="col-md-6 p-4">
                 <h5> Detail Information for Any workspace</h5>
                 {% for workspace in workspaces %}
-                                <a href="{% url 'RetriveWorkspace' workspace.pk %}" style="color: black;">Add Infomation {{workspace.workspace_name}}</a><br/>
+                <a href="{% url 'RetriveWorkspace' workspace.pk %}" style="color: rgb(235, 228, 228);" class="btn btn-primary">Add Infomation {{workspace.workspace_name}}</a><br/>
                 
                 {% endfor %}
             </div>
